@@ -2,6 +2,7 @@ import re
 from datetime import datetime
 
 BRUTE_FORCE_THRESHOLD = 3
+BRUTE_FORCE_WINDOW_MINUTES = 2
 PASSWORD_SPRAY_THRESHOLD = 2
 TARGETED_ACCOUNT_THRESHOLD = 3
 
@@ -149,6 +150,63 @@ for ip, users in failed_users_by_ip.items():
     if len(users) >= PASSWORD_SPRAY_THRESHOLD:
         password_spray_ips.append(ip)
 # --------------------------------------------------
+# 5.7 Detect rapid brute-force activity
+# --------------------------------------------------
+
+time_window_ips = []
+
+failed_events_by_ip = {}
+
+for event in failed_logins:
+    ip = event["ip"]
+
+    if ip not in failed_events_by_ip:
+        failed_events_by_ip[ip] = []
+
+    failed_events_by_ip[ip].append(event)
+
+
+for ip, ip_events in failed_events_by_ip.items():
+
+    ip_events = sorted(
+        ip_events,
+        key=lambda event: datetime.strptime(
+            event["timestamp"],
+            "%Y-%m-%d %H:%M:%S"
+        )
+    )
+
+    for i in range(len(ip_events)):
+
+        window_start = datetime.strptime(
+            ip_events[i]["timestamp"],
+            "%Y-%m-%d %H:%M:%S"
+        )
+
+        attempts = 1
+
+        for j in range(i + 1, len(ip_events)):
+
+            window_end = datetime.strptime(
+                ip_events[j]["timestamp"],
+                "%Y-%m-%d %H:%M:%S"
+            )
+
+            time_difference = window_end - window_start
+
+            if time_difference.total_seconds() <= BRUTE_FORCE_WINDOW_MINUTES * 60:
+                attempts += 1
+
+            else:
+                break
+
+        if attempts >= BRUTE_FORCE_THRESHOLD:
+
+            if ip not in time_window_ips:
+                time_window_ips.append(ip)
+
+            break
+# --------------------------------------------------
 # 6. Generate security alerts with evidence
 # --------------------------------------------------
 
@@ -291,6 +349,7 @@ with open(REPORT_FILE, "w") as report:
 
     report.write(f"Total Log Entries: {len(raw_logs)}\n")
     report.write(f"Parsed Events: {len(events)}\n")
+    print("Successfully parsed events:", len(events))
     report.write(f"Failed Login Attempts: {len(failed_logins)}\n")
     report.write(f"Successful Login Attempts: {len(successful_logins)}\n")
     report.write(f"Suspicious IP Count: {len(suspicious_ips)}\n")
