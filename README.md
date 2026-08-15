@@ -204,7 +204,11 @@ The report contains:
 * Security recommendations
 
 ## Example Output
+## Project Architecture
 
+The following architecture illustrates the SOC Log Analyzer workflow from log ingestion and parsing through threat detection, alert generation, severity classification, and security reporting.
+
+![SOC Log Analyzer Architecture](screenshots/soc-log-architecture.png)
 ![SOC Log Analyzer Output](screenshots/soc-log-analyzer-output.png)
 
 ```text
