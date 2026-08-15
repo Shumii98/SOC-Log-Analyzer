@@ -365,6 +365,24 @@ The IP addresses identified by this project are **sample indicators generated fr
 
 External threat-intelligence services can be integrated in future versions to enrich indicators with reputation, geolocation, ASN, and known threat information.
 
+## Security Dashboard
+
+The project includes automated visualizations generated from authentication log data.
+
+### Authentication Summary
+
+![Authentication Summary](reports/authentication_summary.png)
+
+### Failed Login Attempts by IP
+
+![Failed Logins by IP](reports/failed_logins_by_ip.png)
+
+### Failed Login Attempts by User
+
+![Failed Logins by User](reports/failed_logins_by_user.png)
+
+These visualizations help SOC analysts quickly identify authentication trends, suspicious source IP addresses, and targeted user accounts.
+
 ## Future Improvements
 
 Potential improvements include:
