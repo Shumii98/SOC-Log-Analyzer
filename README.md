@@ -46,8 +46,7 @@ This helps identify repeated login attempts occurring within a short period.
 Detects repeated failed login attempts against the same user account.
 
 ```python
-TARGETED_ACCOUNT_THRESHOLD = 3
-```
+TARGETED_ACCOUNT_THRESHOLD = 3```
 
 This can help identify attempts focused on accounts such as administrative or privileged users.
 
@@ -266,6 +265,50 @@ BRUTE_FORCE_THRESHOLD = 3
 BRUTE_FORCE_WINDOW_MINUTES = 2
 PASSWORD_SPRAY_THRESHOLD = 2
 TARGETED_ACCOUNT_THRESHOLD = 3
+
+## Incident Analysis
+
+### Incident 1: Brute-Force Attack
+
+The analyzer detected a high-severity brute-force attack from `45.33.21.10`.
+
+| Incident Attribute | Details |
+|---|---|
+| Incident Type | Brute-Force Authentication Attack |
+| Severity | HIGH |
+| Source IP | `45.33.21.10` |
+| Target Account | `root` |
+| Failed Attempts | 3 |
+| Detection Rule | `BRUTE_FORCE_DETECTION` |
+| Status | Detected — Requires Investigation |
+
+### SOC Investigation
+
+Three failed login attempts were detected against the `root` account from the same source IP within a short period.
+
+This behavior is consistent with a brute-force authentication attempt.
+
+### Analyst Assessment
+
+The activity is suspicious because:
+
+1. Multiple authentication failures came from the same IP.
+2. The `root` account was specifically targeted.
+3. The activity triggered the `BRUTE_FORCE_DETECTION` rule.
+4. The number of attempts reached the configured detection threshold.
+
+### Recommended SOC Response
+
+1. **Validate** the authentication events and confirm whether the activity was authorized.
+2. **Investigate** the source IP and related authentication events.
+3. **Contain** the activity by considering blocking or rate-limiting the suspicious source according to security policy.
+4. **Protect** the targeted account by reviewing its authentication controls.
+5. **Document** the incident and response actions.
+
+### Analyst Conclusion
+
+The activity represents a **HIGH-severity authentication threat** consistent with a brute-force attack and requires further investigation and appropriate containment.
+
 ## Future Improvements
 
 Potential improvements include:
