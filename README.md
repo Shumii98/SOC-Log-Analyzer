@@ -269,7 +269,7 @@ TARGETED_ACCOUNT_THRESHOLD = 3
 
 ## Incident Analysis
 
-### Incident 1: Brute-Force Attack
+Incident 1: Brute-Force Attack
 
 The analyzer detected a high-severity brute-force attack from `45.33.21.10`.
 
@@ -283,13 +283,13 @@ The analyzer detected a high-severity brute-force attack from `45.33.21.10`.
 | Detection Rule | `BRUTE_FORCE_DETECTION` |
 | Status | Detected — Requires Investigation |
 
-### SOC Investigation
+SOC Investigation
 
 Three failed login attempts were detected against the `root` account from the same source IP within a short period.
 
 This behavior is consistent with a brute-force authentication attempt.
 
-### Analyst Assessment
+Analyst Assessment
 
 The activity is suspicious because:
 
@@ -298,7 +298,7 @@ The activity is suspicious because:
 3. The activity triggered the `BRUTE_FORCE_DETECTION` rule.
 4. The number of attempts reached the configured detection threshold.
 
-### Recommended SOC Response
+Recommended SOC Response
 
 1. **Validate** the authentication events and confirm whether the activity was authorized.
 2. **Investigate** the source IP and related authentication events.
@@ -306,11 +306,11 @@ The activity is suspicious because:
 4. **Protect** the targeted account by reviewing its authentication controls.
 5. **Document** the incident and response actions.
 
-### Analyst Conclusion
+Analyst Conclusion
 
 The activity represents a **HIGH-severity authentication threat** consistent with a brute-force attack and requires further investigation and appropriate containment.
 
-## MITRE ATT&CK Mapping
+MITRE ATT&CK Mapping
 
 The detected authentication threats are mapped to relevant MITRE ATT&CK techniques to provide standardized classification of adversary behavior.
 
@@ -320,7 +320,7 @@ The detected authentication threats are mapped to relevant MITRE ATT&CK techniqu
 | `PASSWORD_SPRAY_DETECTION` | Password Spraying | `T1110.003` | Adversaries may use a small number of commonly used passwords against multiple accounts. |
 | `TARGETED_ACCOUNT_ATTACK` | Brute Force | `T1110` | Repeated authentication attempts are directed against a specific user account. |
 
-### SOC Relevance
+SOC Relevance
 
 MITRE ATT&CK mapping helps SOC analysts translate raw authentication alerts into a standardized description of adversary behavior.
 
@@ -332,15 +332,15 @@ This improves:
 4. **Detection engineering**
 5. **Security reporting**
 
-### Analyst Note
+Analyst Note
 
 The MITRE ATT&CK mappings represent the behavior detected by this rule-based analyzer. They do not confirm that a real-world adversary used a specific technique; further investigation and supporting evidence would be required.
 
-## IOC / Threat Intelligence
+IOC / Threat Intelligence
 
 The analyzer extracts and organizes security-relevant indicators from authentication logs to support SOC investigation and threat intelligence workflows.
 
-### Identified Indicators of Compromise
+Identified Indicators of Compromise
 
 | IOC Type | Indicator | Context | Severity | Detection |
 |---|---|---|---|---|
@@ -349,7 +349,7 @@ The analyzer extracts and organizes security-relevant indicators from authentica
 | IP Address | `103.45.22.8` | Failed login against `root` | HIGH | Targeted Account |
 | IP Address | `172.16.0.15` | Repeated failed logins against `administrator` | HIGH | Brute Force / Targeted Account |
 
-### IOC Investigation Workflow
+IOC Investigation Workflow
 
 A SOC analyst can use the identified indicators to:
 
@@ -360,18 +360,18 @@ A SOC analyst can use the identified indicators to:
 5. Determine whether the activity is malicious, suspicious, or authorized.
 6. Apply appropriate containment actions according to organizational policy.
 
-### Threat Intelligence Note
+Threat Intelligence Note
 
 The IP addresses identified by this project are **sample indicators generated from the project's test dataset**. They should not be treated as confirmed malicious infrastructure without additional threat-intelligence evidence.
 
 External threat-intelligence services can be integrated in future versions to enrich indicators with reputation, geolocation, ASN, and known threat information.
 
-## Security Dashboard
+Security Dashboard
 
 The SOC Log Analyzer includes an automated security dashboard that visualizes authentication activity and highlights suspicious login behavior.
 ![SOC Security Dashboard](screenshots/soc_security_dashboard.png)
 
-### Dashboard Components
+Dashboard Components
 
 - **Authentication Summary** — compares successful and failed login attempts.
 - **Failed Login Attempts by IP** — identifies source IP addresses generating suspicious authentication failures.
@@ -380,7 +380,7 @@ The SOC Log Analyzer includes an automated security dashboard that visualizes au
 
 The dashboard is generated automatically from the authentication log dataset using Python and Matplotlib.
 
-## Future Improvements
+Future Improvements
 
 Potential improvements include:
 
@@ -395,12 +395,12 @@ Potential improvements include:
 * Add statistical anomaly detection
 * Add automated test coverage and CI/CD
 
-## Security Note
+Security Note
 
 This project is intended for educational and defensive cybersecurity purposes.
 
 It demonstrates rule-based security log analysis and should not be considered a replacement for a production SIEM or enterprise security monitoring platform.
 
-## License
+License
 
 This project is licensed under the MIT License.
