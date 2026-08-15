@@ -126,6 +126,29 @@ for user, count in failed_users.items():
     if count >= TARGETED_ACCOUNT_THRESHOLD:
         targeted_accounts.append(user)
 # --------------------------------------------------
+# 5.6 Detect password spraying
+# --------------------------------------------------
+
+failed_users_by_ip = {}
+
+for event in failed_logins:
+
+    ip = event["ip"]
+    user = event["user"]
+
+    if ip not in failed_users_by_ip:
+        failed_users_by_ip[ip] = set()
+
+    failed_users_by_ip[ip].add(user)
+
+
+password_spray_ips = []
+
+for ip, users in failed_users_by_ip.items():
+
+    if len(users) >= PASSWORD_SPRAY_THRESHOLD:
+        password_spray_ips.append(ip)
+# --------------------------------------------------
 # 6. Generate security alerts with evidence
 # --------------------------------------------------
 
@@ -136,8 +159,20 @@ for event in failed_logins:
     ip = event["ip"]
     user = event["user"]
 
+    # Password spraying detection
+    if ip in password_spray_ips:
+
+        alerts.append({
+            "timestamp": event["timestamp"],
+            "ip": ip,
+            "user": user,
+            "failed_attempts": failed_ips[ip],
+            "severity": "HIGH",
+            "rule": "PASSWORD_SPRAY_DETECTION"
+        })
+
     # Brute-force detection
-    if ip in suspicious_ips:
+    elif ip in suspicious_ips:
 
         alerts.append({
             "timestamp": event["timestamp"],
@@ -179,7 +214,6 @@ if alerts:
 else:
 
     print("No security alerts detected.")
-
 
 # --------------------------------------------------
 # 7. Determine overall security severity

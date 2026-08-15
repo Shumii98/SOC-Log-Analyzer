@@ -1,15 +1,15 @@
 SOC LOG ANALYZER SECURITY REPORT
 ================================
 
-Analysis Time: 2026-08-15 11:45:06
+Analysis Time: 2026-08-15 11:59:23
 
 SUMMARY
 -------
-Total Log Entries: 6
-Parsed Events: 6
-Failed Login Attempts: 4
+Total Log Entries: 10
+Parsed Events: 10
+Failed Login Attempts: 8
 Successful Login Attempts: 2
-Suspicious IP Count: 1
+Suspicious IP Count: 2
 Security Severity: HIGH
 
 SECURITY ALERTS
@@ -56,14 +56,46 @@ Failed Attempts: 3
 Severity: HIGH
 Detection Rule: TARGETED_ACCOUNT_ATTACK
 
+Timestamp: 2026-08-13 10:30:01
+Source IP: 10.10.10.50
+Target User: admin
+Failed Attempts: 4
+Severity: HIGH
+Detection Rule: PASSWORD_SPRAY_DETECTION
+
+Timestamp: 2026-08-13 10:30:05
+Source IP: 10.10.10.50
+Target User: alice
+Failed Attempts: 4
+Severity: HIGH
+Detection Rule: PASSWORD_SPRAY_DETECTION
+
+Timestamp: 2026-08-13 10:30:09
+Source IP: 10.10.10.50
+Target User: bob
+Failed Attempts: 4
+Severity: HIGH
+Detection Rule: PASSWORD_SPRAY_DETECTION
+
+Timestamp: 2026-08-13 10:30:13
+Source IP: 10.10.10.50
+Target User: test
+Failed Attempts: 4
+Severity: HIGH
+Detection Rule: PASSWORD_SPRAY_DETECTION
+
 FAILED LOGIN ATTEMPTS BY USER
 -----------------------------
 root - 3 failed login attempts
-test - 1 failed login attempts
+test - 2 failed login attempts
+admin - 1 failed login attempts
+alice - 1 failed login attempts
+bob - 1 failed login attempts
 
 SUSPICIOUS IP ADDRESSES
 -----------------------
 45.33.21.10 - 3 failed login attempts
+10.10.10.50 - 4 failed login attempts
 
 SECURITY RECOMMENDATIONS
 ------------------------
