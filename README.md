@@ -369,7 +369,8 @@ External threat-intelligence services can be integrated in future versions to en
 
 The SOC Log Analyzer includes an automated security dashboard that visualizes authentication activity and highlights suspicious login behavior.
 
-![SOC Security Dashboard](./reports/soc_security_dashboard.png)
+![SOC Security Dashboard](https://raw.githubusercontent.com/Shumii98/SOC-Log-Analyzer/main/reports/soc_security_dashboard.png)
+
 ### Dashboard Components
 
 - **Authentication Summary** — compares successful and failed login attempts.
