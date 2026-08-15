@@ -1,7 +1,7 @@
 SOC LOG ANALYZER SECURITY REPORT
 ================================
 
-Analysis Time: 2026-08-15 11:32:00
+Analysis Time: 2026-08-15 11:45:06
 
 SUMMARY
 -------
@@ -21,7 +21,28 @@ Failed Attempts: 3
 Severity: HIGH
 Detection Rule: BRUTE_FORCE_DETECTION
 
+Timestamp: 2026-08-13 10:16:01
+Source IP: 45.33.21.10
+Target User: root
+Failed Attempts: 3
+Severity: HIGH
+Detection Rule: TARGETED_ACCOUNT_ATTACK
+
 Timestamp: 2026-08-13 10:16:05
+Source IP: 45.33.21.10
+Target User: root
+Failed Attempts: 3
+Severity: HIGH
+Detection Rule: BRUTE_FORCE_DETECTION
+
+Timestamp: 2026-08-13 10:16:05
+Source IP: 45.33.21.10
+Target User: root
+Failed Attempts: 3
+Severity: HIGH
+Detection Rule: TARGETED_ACCOUNT_ATTACK
+
+Timestamp: 2026-08-13 10:16:10
 Source IP: 45.33.21.10
 Target User: root
 Failed Attempts: 3
@@ -33,7 +54,7 @@ Source IP: 45.33.21.10
 Target User: root
 Failed Attempts: 3
 Severity: HIGH
-Detection Rule: BRUTE_FORCE_DETECTION
+Detection Rule: TARGETED_ACCOUNT_ATTACK
 
 FAILED LOGIN ATTEMPTS BY USER
 -----------------------------

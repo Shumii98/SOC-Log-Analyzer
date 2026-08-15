@@ -2,6 +2,8 @@ import re
 from datetime import datetime
 
 BRUTE_FORCE_THRESHOLD = 3
+PASSWORD_SPRAY_THRESHOLD = 2
+TARGETED_ACCOUNT_THRESHOLD = 3
 
 LOG_FILE = "logs/security.log"
 REPORT_FILE = "reports/security_report.txt"
@@ -113,7 +115,16 @@ for ip, count in failed_ips.items():
     if count >= BRUTE_FORCE_THRESHOLD:
         suspicious_ips.append(ip)
 
+# --------------------------------------------------
+# 5.5 Detect targeted account attacks
+# --------------------------------------------------
 
+targeted_accounts = []
+
+for user, count in failed_users.items():
+
+    if count >= TARGETED_ACCOUNT_THRESHOLD:
+        targeted_accounts.append(user)
 # --------------------------------------------------
 # 6. Generate security alerts with evidence
 # --------------------------------------------------
@@ -123,16 +134,30 @@ alerts = []
 for event in failed_logins:
 
     ip = event["ip"]
+    user = event["user"]
 
+    # Brute-force detection
     if ip in suspicious_ips:
 
         alerts.append({
             "timestamp": event["timestamp"],
-            "ip": event["ip"],
-            "user": event["user"],
+            "ip": ip,
+            "user": user,
             "failed_attempts": failed_ips[ip],
             "severity": "HIGH",
             "rule": "BRUTE_FORCE_DETECTION"
+        })
+
+    # Targeted account detection
+    if user in targeted_accounts:
+
+        alerts.append({
+            "timestamp": event["timestamp"],
+            "ip": ip,
+            "user": user,
+            "failed_attempts": failed_users[user],
+            "severity": "HIGH",
+            "rule": "TARGETED_ACCOUNT_ATTACK"
         })
 
 
@@ -141,6 +166,7 @@ print("\nSecurity Alerts:")
 if alerts:
 
     for alert in alerts:
+
         print(
             f"ALERT | {alert['severity']} | "
             f"{alert['timestamp']} | "
@@ -151,6 +177,7 @@ if alerts:
         )
 
 else:
+
     print("No security alerts detected.")
 
 
