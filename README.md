@@ -366,12 +366,13 @@ The IP addresses identified by this project are **sample indicators generated fr
 
 External threat-intelligence services can be integrated in future versions to enrich indicators with reputation, geolocation, ASN, and known threat information.
 
-Security Dashboard
+## Security Dashboard
 
 The SOC Log Analyzer includes an automated security dashboard that visualizes authentication activity and highlights suspicious login behavior.
+
 ![SOC Security Dashboard](screenshots/soc_security_dashboard.png)
 
-Dashboard Components
+### Dashboard Components
 
 - **Authentication Summary** — compares successful and failed login attempts.
 - **Failed Login Attempts by IP** — identifies source IP addresses generating suspicious authentication failures.
@@ -379,7 +380,6 @@ Dashboard Components
 - **Security Summary** — provides a quick overview of authentication activity and security severity.
 
 The dashboard is generated automatically from the authentication log dataset using Python and Matplotlib.
-
 Future Improvements
 
 Potential improvements include:
