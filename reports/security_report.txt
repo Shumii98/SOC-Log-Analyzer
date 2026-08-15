@@ -1,25 +1,52 @@
 SOC LOG ANALYZER SECURITY REPORT
 ================================
-Analysis Time: 2026-08-13 18:34:44
 
-Total log entries: 6
-Failed login attempts: 4
-Successful login attempts: 2
-Suspicious IP count: 1
+Analysis Time: 2026-08-15 11:32:00
+
+SUMMARY
+-------
+Total Log Entries: 6
+Parsed Events: 6
+Failed Login Attempts: 4
+Successful Login Attempts: 2
+Suspicious IP Count: 1
 Security Severity: HIGH
-Alert Status: CRITICAL - Immediate investigation required
 
-Failed Login Attempts by User:
--------------------------------
+SECURITY ALERTS
+---------------
+Timestamp: 2026-08-13 10:16:01
+Source IP: 45.33.21.10
+Target User: root
+Failed Attempts: 3
+Severity: HIGH
+Detection Rule: BRUTE_FORCE_DETECTION
+
+Timestamp: 2026-08-13 10:16:05
+Source IP: 45.33.21.10
+Target User: root
+Failed Attempts: 3
+Severity: HIGH
+Detection Rule: BRUTE_FORCE_DETECTION
+
+Timestamp: 2026-08-13 10:16:10
+Source IP: 45.33.21.10
+Target User: root
+Failed Attempts: 3
+Severity: HIGH
+Detection Rule: BRUTE_FORCE_DETECTION
+
+FAILED LOGIN ATTEMPTS BY USER
+-----------------------------
 root - 3 failed login attempts
 test - 1 failed login attempts
 
-Security Recommendations:
--------------------------
-- Investigate suspicious IP addresses and consider blocking malicious sources.
-- Review authentication logs for possible brute-force activity.
-- Review targeted user accounts and verify whether the activity is legitimate.
-
-Suspicious IP Addresses:
--------------------------
+SUSPICIOUS IP ADDRESSES
+-----------------------
 45.33.21.10 - 3 failed login attempts
+
+SECURITY RECOMMENDATIONS
+------------------------
+- Investigate suspicious IP addresses for potential brute-force activity.
+- Review authentication events associated with the affected accounts.
+- Consider temporarily blocking or rate-limiting suspicious sources.
+- Review targeted user accounts for unauthorized access attempts.

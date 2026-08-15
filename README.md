@@ -94,8 +94,6 @@ SOC-Log-Analyzer/
 
 
 
-text
-
 Authentication Logs
 
 &#x20;       |
