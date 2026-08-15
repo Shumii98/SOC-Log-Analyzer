@@ -309,6 +309,32 @@ The activity is suspicious because:
 
 The activity represents a **HIGH-severity authentication threat** consistent with a brute-force attack and requires further investigation and appropriate containment.
 
+## MITRE ATT&CK Mapping
+
+The detected authentication threats are mapped to relevant MITRE ATT&CK techniques to provide standardized classification of adversary behavior.
+
+| Detection Rule | Attack Technique | MITRE ATT&CK ID | Description |
+|---|---|---|---|
+| `BRUTE_FORCE_DETECTION` | Brute Force | `T1110` | Adversaries may repeatedly attempt authentication to gain access to an account. |
+| `PASSWORD_SPRAY_DETECTION` | Password Spraying | `T1110.003` | Adversaries may use a small number of commonly used passwords against multiple accounts. |
+| `TARGETED_ACCOUNT_ATTACK` | Brute Force | `T1110` | Repeated authentication attempts are directed against a specific user account. |
+
+### SOC Relevance
+
+MITRE ATT&CK mapping helps SOC analysts translate raw authentication alerts into a standardized description of adversary behavior.
+
+This improves:
+
+1. **Alert classification**
+2. **Incident investigation**
+3. **Threat hunting**
+4. **Detection engineering**
+5. **Security reporting**
+
+### Analyst Note
+
+The MITRE ATT&CK mappings represent the behavior detected by this rule-based analyzer. They do not confirm that a real-world adversary used a specific technique; further investigation and supporting evidence would be required.
+
 ## Future Improvements
 
 Potential improvements include:
