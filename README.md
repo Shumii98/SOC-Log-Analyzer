@@ -205,6 +205,8 @@ The report contains:
 
 ## Example Output
 
+![SOC Log Analyzer Output](screenshots/soc-log-analyzer-output.png)
+
 ```text
 SOC Log Analyzer
 ================
