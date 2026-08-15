@@ -335,6 +335,36 @@ This improves:
 
 The MITRE ATT&CK mappings represent the behavior detected by this rule-based analyzer. They do not confirm that a real-world adversary used a specific technique; further investigation and supporting evidence would be required.
 
+## IOC / Threat Intelligence
+
+The analyzer extracts and organizes security-relevant indicators from authentication logs to support SOC investigation and threat intelligence workflows.
+
+### Identified Indicators of Compromise
+
+| IOC Type | Indicator | Context | Severity | Detection |
+|---|---|---|---|---|
+| IP Address | `45.33.21.10` | Repeated failed logins against `root` | HIGH | Brute Force / Targeted Account |
+| IP Address | `10.10.10.50` | Failed authentication against multiple accounts | HIGH | Password Spraying |
+| IP Address | `103.45.22.8` | Failed login against `root` | HIGH | Targeted Account |
+| IP Address | `172.16.0.15` | Repeated failed logins against `administrator` | HIGH | Brute Force / Targeted Account |
+
+### IOC Investigation Workflow
+
+A SOC analyst can use the identified indicators to:
+
+1. Investigate the source IP address using approved threat-intelligence sources.
+2. Review related authentication events from the same IP.
+3. Identify other accounts targeted by the source.
+4. Check whether the indicator appears in other security logs.
+5. Determine whether the activity is malicious, suspicious, or authorized.
+6. Apply appropriate containment actions according to organizational policy.
+
+### Threat Intelligence Note
+
+The IP addresses identified by this project are **sample indicators generated from the project's test dataset**. They should not be treated as confirmed malicious infrastructure without additional threat-intelligence evidence.
+
+External threat-intelligence services can be integrated in future versions to enrich indicators with reputation, geolocation, ASN, and known threat information.
+
 ## Future Improvements
 
 Potential improvements include:
