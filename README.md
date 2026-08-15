@@ -248,6 +248,24 @@ This project demonstrates practical foundational skills relevant to SOC Analyst 
 * Security reporting
 * Basic incident investigation and recommendations
 
+## Detection Rules
+
+The SOC Log Analyzer applies rule-based detection logic to identify common authentication-based security threats.
+
+| Detection Rule | Trigger Condition | Severity | SOC Response |
+|---|---|---|---|
+| `BRUTE_FORCE_DETECTION` | 3 or more failed login attempts from the same IP | HIGH | Investigate source IP and consider temporary blocking |
+| `PASSWORD_SPRAY_DETECTION` | Failed login attempts against 2 or more different accounts from the same IP | HIGH | Investigate source IP and affected accounts |
+| `TARGETED_ACCOUNT_ATTACK` | 3 or more failed login attempts against the same user | HIGH | Investigate targeted account and authentication activity |
+| `SUSPICIOUS_IP_ACTIVITY` | IP generates repeated suspicious authentication failures | MEDIUM/HIGH | Review IP reputation and related events |
+
+### Detection Thresholds
+
+```text
+BRUTE_FORCE_THRESHOLD = 3
+BRUTE_FORCE_WINDOW_MINUTES = 2
+PASSWORD_SPRAY_THRESHOLD = 2
+TARGETED_ACCOUNT_THRESHOLD = 3
 ## Future Improvements
 
 Potential improvements include:
