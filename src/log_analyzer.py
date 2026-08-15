@@ -1,4 +1,7 @@
 import re
+import sys
+import os
+from collections import Counter
 from datetime import datetime
 
 BRUTE_FORCE_THRESHOLD = 3
@@ -6,7 +9,7 @@ BRUTE_FORCE_WINDOW_MINUTES = 2
 PASSWORD_SPRAY_THRESHOLD = 2
 TARGETED_ACCOUNT_THRESHOLD = 3
 
-LOG_FILE = "logs/security.log"
+LOG_FILE = sys.argv[1] if len(sys.argv) > 1 and os.path.isfile(sys.argv[1]) else "logs/security.log"
 REPORT_FILE = "reports/security_report.txt"
 
 print("SOC Log Analyzer")
@@ -211,6 +214,7 @@ for ip, ip_events in failed_events_by_ip.items():
 # --------------------------------------------------
 
 alerts = []
+generated_alerts = set()
 
 for event in failed_logins:
 
@@ -220,39 +224,50 @@ for event in failed_logins:
     # Password spraying detection
     if ip in password_spray_ips:
 
-        alerts.append({
-            "timestamp": event["timestamp"],
-            "ip": ip,
-            "user": user,
-            "failed_attempts": failed_ips[ip],
-            "severity": "HIGH",
-            "rule": "PASSWORD_SPRAY_DETECTION"
-        })
+        alert_key = (ip, user, "PASSWORD_SPRAY_DETECTION")
+
+        if alert_key not in generated_alerts:
+            alerts.append({
+                "timestamp": event["timestamp"],
+                "ip": ip,
+                "user": user,
+                "failed_attempts": failed_ips[ip],
+                "severity": "HIGH",
+                "rule": "PASSWORD_SPRAY_DETECTION"
+            })
+            generated_alerts.add(alert_key)
 
     # Brute-force detection
     elif ip in suspicious_ips:
 
-        alerts.append({
-            "timestamp": event["timestamp"],
-            "ip": ip,
-            "user": user,
-            "failed_attempts": failed_ips[ip],
-            "severity": "HIGH",
-            "rule": "BRUTE_FORCE_DETECTION"
-        })
+        alert_key = (ip, user, "BRUTE_FORCE_DETECTION")
+
+        if alert_key not in generated_alerts:
+            alerts.append({
+                "timestamp": event["timestamp"],
+                "ip": ip,
+                "user": user,
+                "failed_attempts": failed_ips[ip],
+                "severity": "HIGH",
+                "rule": "BRUTE_FORCE_DETECTION"
+            })
+            generated_alerts.add(alert_key)
 
     # Targeted account detection
     if user in targeted_accounts:
 
-        alerts.append({
-            "timestamp": event["timestamp"],
-            "ip": ip,
-            "user": user,
-            "failed_attempts": failed_users[user],
-            "severity": "HIGH",
-            "rule": "TARGETED_ACCOUNT_ATTACK"
-        })
+        alert_key = (ip, user, "TARGETED_ACCOUNT_ATTACK")
 
+        if alert_key not in generated_alerts:
+            alerts.append({
+                "timestamp": event["timestamp"],
+                "ip": ip,
+                "user": user,
+                "failed_attempts": failed_users[user],
+                "severity": "HIGH",
+                "rule": "TARGETED_ACCOUNT_ATTACK"
+            })
+            generated_alerts.add(alert_key)
 
 print("\nSecurity Alerts:")
 
