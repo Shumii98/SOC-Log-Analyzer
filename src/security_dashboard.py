@@ -60,7 +60,7 @@ def create_dashboard():
 
     failed, successful, failed_ips, failed_users = data
 
-    # 1. Authentication Summary
+    # Individual charts
     plt.figure(figsize=(8, 5))
     plt.bar(
         ["Successful Logins", "Failed Logins"],
@@ -75,7 +75,6 @@ def create_dashboard():
     )
     plt.close()
 
-    # 2. Failed Attempts by IP
     plt.figure(figsize=(9, 5))
     plt.bar(
         list(failed_ips.keys()),
@@ -92,7 +91,6 @@ def create_dashboard():
     )
     plt.close()
 
-    # 3. Failed Attempts by User
     plt.figure(figsize=(9, 5))
     plt.bar(
         list(failed_users.keys()),
@@ -109,6 +107,100 @@ def create_dashboard():
     )
     plt.close()
 
+    # Combined SOC dashboard
+    fig, axes = plt.subplots(2, 2, figsize=(14, 9))
+
+    fig.suptitle(
+        "SOC Security Dashboard",
+        fontsize=20,
+        fontweight="bold"
+    )
+
+    # Authentication summary
+    axes[0, 0].bar(
+        ["Successful", "Failed"],
+        [successful, failed]
+    )
+    axes[0, 0].set_title("Authentication Summary")
+    axes[0, 0].set_ylabel("Attempts")
+
+    # Failed logins by IP
+    axes[0, 1].bar(
+        list(failed_ips.keys()),
+        list(failed_ips.values())
+    )
+    axes[0, 1].set_title("Failed Login Attempts by IP")
+    axes[0, 1].set_xlabel("Source IP")
+    axes[0, 1].set_ylabel("Attempts")
+    axes[0, 1].tick_params(axis="x", rotation=30)
+
+    # Failed logins by user
+    axes[1, 0].bar(
+        list(failed_users.keys()),
+        list(failed_users.values())
+    )
+    axes[1, 0].set_title("Failed Login Attempts by User")
+    axes[1, 0].set_xlabel("User")
+    axes[1, 0].set_ylabel("Attempts")
+    axes[1, 0].tick_params(axis="x", rotation=30)
+
+    # Security summary
+    axes[1, 1].axis("off")
+
+    axes[1, 1].text(
+        0.05,
+        0.85,
+        "SECURITY SUMMARY",
+        fontsize=16,
+        fontweight="bold"
+    )
+
+    axes[1, 1].text(
+        0.05,
+        0.68,
+        f"Successful Logins: {successful}",
+        fontsize=13
+    )
+
+    axes[1, 1].text(
+        0.05,
+        0.58,
+        f"Failed Logins: {failed}",
+        fontsize=13
+    )
+
+    axes[1, 1].text(
+        0.05,
+        0.48,
+        f"Suspicious IPs: {len(failed_ips)}",
+        fontsize=13
+    )
+
+    axes[1, 1].text(
+        0.05,
+        0.38,
+        f"Users Targeted: {len(failed_users)}",
+        fontsize=13
+    )
+
+    axes[1, 1].text(
+        0.05,
+        0.28,
+        "Security Severity: HIGH",
+        fontsize=13,
+        fontweight="bold"
+    )
+
+    plt.tight_layout(rect=[0, 0, 1, 0.95])
+
+    plt.savefig(
+        os.path.join(OUTPUT_DIR, "soc_security_dashboard.png"),
+        dpi=180,
+        bbox_inches="tight"
+    )
+
+    plt.close()
+
     print("SOC Security Dashboard")
     print("======================")
     print(f"Successful logins: {successful}")
@@ -118,6 +210,7 @@ def create_dashboard():
     print("reports/authentication_summary.png")
     print("reports/failed_logins_by_ip.png")
     print("reports/failed_logins_by_user.png")
+    print("reports/soc_security_dashboard.png")
 
 
 if __name__ == "__main__":

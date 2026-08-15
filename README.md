@@ -367,22 +367,20 @@ External threat-intelligence services can be integrated in future versions to en
 
 ## Security Dashboard
 
-The project includes automated visualizations generated from authentication log data.
+## Security Dashboard
 
-### Authentication Summary
+The SOC Log Analyzer includes an automated security dashboard that visualizes authentication activity and highlights suspicious login behavior.
 
-![Authentication Summary](reports/authentication_summary.png)
+![SOC Security Dashboard](reports/soc_security_dashboard.png)
 
-### Failed Login Attempts by IP
+### Dashboard Components
 
-![Failed Logins by IP](reports/failed_logins_by_ip.png)
+- **Authentication Summary** — compares successful and failed login attempts.
+- **Failed Login Attempts by IP** — identifies source IP addresses generating suspicious authentication failures.
+- **Failed Login Attempts by User** — highlights accounts targeted by failed authentication attempts.
+- **Security Summary** — provides a quick overview of authentication activity and security severity.
 
-### Failed Login Attempts by User
-
-![Failed Logins by User](reports/failed_logins_by_user.png)
-
-These visualizations help SOC analysts quickly identify authentication trends, suspicious source IP addresses, and targeted user accounts.
-
+The dashboard is generated automatically from the authentication log dataset using Python and Matplotlib.
 ## Future Improvements
 
 Potential improvements include:
