@@ -267,6 +267,8 @@ BRUTE_FORCE_WINDOW_MINUTES = 2
 PASSWORD_SPRAY_THRESHOLD = 2
 TARGETED_ACCOUNT_THRESHOLD = 3
 
+```
+
 ## Incident Analysis
 
 Incident 1: Brute-Force Attack
@@ -380,16 +382,14 @@ The SOC Log Analyzer includes an automated security dashboard that visualizes au
 - **Security Summary** — provides a quick overview of authentication activity and security severity.
 
 The dashboard is generated automatically from the authentication log dataset using Python and Matplotlib.
-Future Improvements
+## Future Improvements
 
 Potential improvements include:
 
-* Add unit tests for all detection rules
 * Support multiple log formats
 * Add CSV and JSON log ingestion
 * Add configurable detection rules through a configuration file
 * Add automated IP blocking integration
-* Add dashboard visualization
 * Add email or webhook alerting
 * Integrate with a SIEM platform
 * Add statistical anomaly detection
